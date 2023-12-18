@@ -15,27 +15,6 @@ expected_results = {
     "overflow": [0, 0, 0, 1]
 }
 
-class FullyConnectedLayer:
-    def __init__(self, nb_inputs, nb_outputs):
-        self.input = None
-        self.output = None
-        self.weights = np.random.rand(nb_inputs, nb_outputs) - 0.5
-        self.bias = np.random.rand(1, nb_outputs) - 0.5
-
-    def forward(self, data):
-        self.input = data
-        self.output = np.dot(self.input, self.weights) + self.bias
-        return self.output
-
-    def backward(self, out_error, rate):
-        input_error = np.dot(out_error, self.weights.T)
-        weights_error = np.dot(self.input.T, out_error)
-
-        bias_d = out_error
-        self.weights -= weights_error * rate
-        self.bias -= bias_d * rate
-        return input_error
-
 class ActivationLayer:
     def __init__(self, activation, activation_prime):
         self.activation = activation
